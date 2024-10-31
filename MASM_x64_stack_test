@@ -1,0 +1,54 @@
+; MASM x64 program to add five integers
+
+.code
+
+; adds the first five bytes on the stack, and then returns the value in the al register.
+addFiveBytes PROC
+	push rbp
+	mov rbp, rsp ; starting f's frame
+	
+	; we start at 16 because when the function is called the return address is pushed to the stack,
+	; then after that rbp is pushed to the stack.
+
+	mov al, 0
+
+	add al, [rbp + 16]
+	add al, [rbp + 17]
+	add al, [rbp + 18]
+	add al, [rbp + 19]
+	add al, [rbp + 20]
+	
+	mov rsp, rbp ; clean f's stack frame
+	pop rbp
+	ret
+
+addFiveBytes ENDP
+
+
+
+main PROC
+	sub rsp, 1            ; Allocate a byte on the stack
+	mov byte ptr [rsp], 5 ; store num1 into rsp
+
+	sub rsp, 1
+	mov byte ptr [rsp], 5 ; num 2
+
+	sub rsp, 1
+	mov byte ptr [rsp], 5 ; num 3
+
+	sub rsp, 1
+	mov byte ptr [rsp], 4 ; num 4
+
+	sub rsp, 1
+	mov byte ptr [rsp], 4 ; num 5
+
+	
+	call addFiveBytes
+	; 5+5+5+4+4 = 17 in hex, or 23 in base 10
+
+
+    add rsp, 5 ; cleanup the 5 values in the stack
+
+	ret
+	main ENDP
+END
