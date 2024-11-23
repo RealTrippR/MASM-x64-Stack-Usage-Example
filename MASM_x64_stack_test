@@ -8,7 +8,7 @@ addFiveBytes PROC
 	mov rbp, rsp ; starting f's frame
 	
 	; we start at 16 because when the function is called the return address is pushed to the stack,
-	; then after that rbp is pushed to the stack.
+	; then after that rbp is pushed to the stack. - each of which are 8 bytes.
 
 	mov al, 0
 
